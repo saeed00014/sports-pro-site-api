@@ -29,7 +29,7 @@ mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true })
   console.log('connected to database')
   // listen to port
   app.listen(PORT, () => {
-    console.log('listening for requests on port', process.env.PORT)
+    console.log('listening for requests on port', PORT)
   })
 })
 .catch((err) => {
