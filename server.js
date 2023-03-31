@@ -6,7 +6,7 @@ const cardRoutes = require('./routes/cards')
 const corsOptions = require('./config/corsOptions')
 const cors = require('cors')
 const connectDB = require('./config/dbConn')
-
+const PORT = process.env.PORT
 
 connectDB()
 
@@ -27,14 +27,12 @@ app.use((req, res, next) => {
 app.use('/cards', cardRoutes)
 
 // connect to db
-mongoose.connection.once('open')
-  .then(() => {
-    console.log('connected to database')
-    // listen to port
-    app.listen(process.env.PORT, () => {
-      console.log('listening for requests on port', process.env.PORT)
-    })
-  })
-  .catch((err) => {
-    console.log(err)
-  }) 
+mongoose.connection.once('open', () => {
+  console.log('Connected to MongoDB')
+  app.listen(PORT, () => console.log(`Server running on port ${PORT}`))
+})
+
+mongoose.connection.on('error', err => {
+  console.log(err)
+  logEvents(`${err.no}: ${err.code}\t${err.syscall}\t${err.hostname}`, 'mongoErrLog.log')
+})
