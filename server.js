@@ -17,11 +17,12 @@ app.use((req, res, next) => {
   next()
 })
 
+mongoose.set("strictQuery", false);
 // routes
 app.use('/cards', cardRoutes)
 
 // connect to db
-mongoose.connect(process.env.MONGO_URI)
+mongoose.connect(process.env.MONGO_URL)
   .then(() => {
     console.log('connected to database')
     // listen to port
@@ -32,3 +33,4 @@ mongoose.connect(process.env.MONGO_URI)
   .catch((err) => {
     console.log(err)
   }) 
+  
