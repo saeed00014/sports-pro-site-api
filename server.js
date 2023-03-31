@@ -3,16 +3,16 @@ require('dotenv').config()
 const express = require('express')
 const mongoose = require('mongoose')
 const cardRoutes = require('./routes/cards')
+const connectDB = require('./connection/dbconn')
+const PORT = process.env.PORT || 4000
 
-const url = process.env.MONGO_URL
-const PORT = process.env.PORT
+connectDB()
 
 // express app
 const app = express()
 
 // middleware
 app.use(express.json())
-
 
 app.use((req, res, next) => {
   console.log(req.path, req.method)
@@ -22,16 +22,9 @@ app.use((req, res, next) => {
 // routes
 app.use('/cards', cardRoutes)
 
-mongoose.set("strictQuery", false);
-// connect to db
-mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true })
-.then(() => {
-  console.log('connected to database')
-  // listen to port
-  app.listen(PORT, () => {
-    console.log('listening for requests on port', PORT)
-  })
+
+mongoose.connection.once('open', () => {
+  mongoose.set("strictQuery", false)
+  console.log('Connected to MongoDB')
+  app.listen(PORT, () => console.log(`Server running on port ${PORT}`))
 })
-.catch((err) => {
-  console.log(err)
-}) 
