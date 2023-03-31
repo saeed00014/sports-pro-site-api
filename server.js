@@ -4,13 +4,15 @@ const express = require('express')
 const mongoose = require('mongoose')
 const cardRoutes = require('./routes/cards')
 
+const url = process.env.MONGO_URL
+const PORT = process.env.PORT
+
 // express app
 const app = express()
 
 // middleware
 app.use(express.json())
 
-mongoose.set("strictQuery", false);
 
 app.use((req, res, next) => {
   console.log(req.path, req.method)
@@ -20,15 +22,16 @@ app.use((req, res, next) => {
 // routes
 app.use('/cards', cardRoutes)
 
+mongoose.set("strictQuery", false);
 // connect to db
-mongoose.connect(process.env.MONGO_URI)
-  .then(() => {
-    console.log('connected to database')
-    // listen to port
-    app.listen(process.env.PORT, () => {
-      console.log('listening for requests on port', process.env.PORT)
-    })
+mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true })
+.then(() => {
+  console.log('connected to database')
+  // listen to port
+  app.listen(PORT, () => {
+    console.log('listening for requests on port', process.env.PORT)
   })
-  .catch((err) => {
-    console.log(err)
-  }) 
+})
+.catch((err) => {
+  console.log(err)
+}) 
