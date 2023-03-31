@@ -4,7 +4,7 @@ const express = require('express')
 const mongoose = require('mongoose')
 const cardRoutes = require('./routes/cards')
 
-const PORT = process.env.PORT || 4000
+const PORT = process.env.PORT || 10000
 
 // express app
 const app = express()
@@ -19,7 +19,7 @@ app.use((req, res, next) => {
 
 mongoose.set("strictQuery", false);
 // routes
-app.use('/cards', cardRoutes)
+app.use('/sports-pro-site/card', cardRoutes)
 
 // connect to db
 mongoose.connect(process.env.MONGO_URL)
