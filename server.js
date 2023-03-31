@@ -10,10 +10,10 @@ const connectDB = require('./config/dbConn')
 
 connectDB()
 
-app.use(cors(corsOptions))
-
 // express app
 const app = express()
+
+app.use(cors(corsOptions))
 
 // middleware
 app.use(express.json())
