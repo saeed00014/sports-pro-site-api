@@ -19,7 +19,7 @@ app.use((req, res, next) => {
 
 mongoose.set("strictQuery", false);
 // routes
-app.use('/sports-pro-site/card', cardRoutes)
+app.use('https://sports-pro-site-api.onrender.com/sports-pro-site/card', cardRoutes)
 
 // connect to db
 mongoose.connect(process.env.MONGO_URL)
