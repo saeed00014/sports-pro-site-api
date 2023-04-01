@@ -4,11 +4,9 @@ const express = require('express')
 const mongoose = require('mongoose')
 const cardRoutes = require('./routes/cards')
 const cors = require('cors')
-const connectDB = require('./config/dbConn')
 
 const PORT = process.env.PORT || 10000
 
-connectDB()
 // express app
 const app = express()
 
@@ -24,7 +22,7 @@ app.use((req, res, next) => {
 
 // routes
 app.use('/card', cardRoutes)
-
+mongoose.set('strictQuery', false);
 // connect to db
 mongoose.connect(process.env.MONGO_URL)
   .then(() => {
