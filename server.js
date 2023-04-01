@@ -3,11 +3,16 @@ require('dotenv').config()
 const express = require('express')
 const mongoose = require('mongoose')
 const cardRoutes = require('./routes/cards')
+const cors = require('cors')
+const connectDB = require('./config/dbConn')
 
 const PORT = process.env.PORT || 10000
 
+connectDB()
 // express app
 const app = express()
+
+app.use(cors())
 
 // middleware
 app.use(express.json())
@@ -17,7 +22,6 @@ app.use((req, res, next) => {
   next()
 })
 
-mongoose.set("strictQuery", false);
 // routes
 app.use('/card', cardRoutes)
 
@@ -33,4 +37,3 @@ mongoose.connect(process.env.MONGO_URL)
   .catch((err) => {
     console.log(err)
   }) 
-  
