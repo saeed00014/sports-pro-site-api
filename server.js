@@ -3,6 +3,7 @@ require('dotenv').config()
 const express = require('express')
 const mongoose = require('mongoose')
 const cardRoutes = require('./routes/cards')
+const formRoutes = require('./routes/form')
 const cors = require('cors')
 
 const PORT = process.env.PORT || 10000
@@ -22,6 +23,8 @@ app.use((req, res, next) => {
 
 // routes
 app.use('/card', cardRoutes)
+app.use('/form', formRoutes)
+
 mongoose.set('strictQuery', false);
 // connect to db
 mongoose.connect(process.env.MONGO_URL)
