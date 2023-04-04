@@ -9,7 +9,7 @@ const getForms = async (req, res) => {
 const getForm = async (req, res) => {
   const { id } = req.params
 
-  const form = await Forms.findById(id)
+  const form = await Forms.findById({})
 
   res.status(200).json(form)
 }

@@ -4,20 +4,16 @@ const Schema = mongoose.Schema
 
 const formSchema = new Schema({
   username: {
-    type: String,
-    required: true
+    type: String
   },
   email: {
-    type: String,
-    required:true
+    type: String
   },
   birth: {
-    type: String,
-    required:true
+    type: String
   },
   password: {
-    type: String,
-    required:true
+    type: String
   }
 })
 
