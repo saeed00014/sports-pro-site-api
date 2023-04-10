@@ -21,11 +21,11 @@ const cardSchema = new Schema({
   },
   size: {
     type: String,
-    required: true
+    required: false
   },
   color: {
     type: String,
-    required: true
+    required: false
   }
 })
 
