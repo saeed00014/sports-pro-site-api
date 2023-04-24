@@ -14,6 +14,9 @@ const formSchema = new Schema({
   },
   password: {
     type: String
+  },
+  text: {
+    type: String
   }
 })
 

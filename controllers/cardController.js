@@ -27,11 +27,12 @@ const getCard = async (req, res) => {
 
 // create a new workout
 const createCard = async (req, res) => {
-  const {image, dis, title, price, size, color} = req.body
+  const {id, image, dis, title, price, size, color} = req.body
+  console.log(req.body.id)
 
   // add to the database
   try {
-    const card = await Card.create({image, dis, title, price, size, color})
+    const card = await Card.create({id, image, dis, title, price, size, color})
     res.status(200).json(card)
   } catch (error) {
     res.status(400).json({ error: error.message })
